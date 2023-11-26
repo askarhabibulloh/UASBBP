@@ -15,7 +15,7 @@ class Clock {
 class Alarm extends Clock{
     private $alarm;
 
-    function __construct($a=00,$b=00,$c=00){
+    function __construct($a="24",$b="00",$c="00"){
         $this->alarm = $a.":".$b.":".$c;
         if($this->alarm == "24:00:00")$this->alarm=null;
     }
@@ -36,7 +36,7 @@ class Alarm extends Clock{
 if (isset($_POST["jam"]) && isset($_POST["menit"]) && isset($_POST["detik"])) {
     $alarm = new Alarm($_POST["jam"], $_POST["menit"], $_POST["detik"]);
 } else {
-    $alarm = new Alarm("24","00","00");
+    $alarm = new Alarm();
 }
 
 if(isset($_POST["clear"]))  $alarm->clearJam();
@@ -45,7 +45,7 @@ echo $alarm->getJam();
 
 echo "<script>
 setInterval(() => {
-if('".$alarm->getJam()."'==document.getElementById('jamsekarang').innerHTML){
+if('".$alarm->getJamOnly()."'==document.getElementById('jamsekarang').innerHTML){
 alert('Alarm berbunyi');
 }    
 }, 1000);
